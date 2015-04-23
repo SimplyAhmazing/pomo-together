@@ -3,8 +3,12 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="/socket.io/socket.io.js"></script>
     <script>
-
+      var socket = io();
+      socket.on('time-tick', function(data){
+        console.log(Math.floor(data) + ':' + Math.round( (data % 1) * 60) );
+      });
     </script>
   </head>
   <body>

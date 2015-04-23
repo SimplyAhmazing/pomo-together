@@ -7,6 +7,10 @@
 var app = require('../app');
 var debug = require('debug')('pomodorojs:server');
 var http = require('http');
+var ioFactory = require('socket.io');
+var pomoTimes = [25, 5, 15];
+var clock = require('../modules/clock');
+
 
 /**
  * Get port from environment and store in Express.
@@ -20,11 +24,17 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+var io = ioFactory(server);
+
+clock.on('tick', function(pomoTime){
+  io.sockets.emit('time-tick', pomoTime);
+});
 
 /**
  * Listen on provided port, on all network interfaces.
  */
 
+clock.run();
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
@@ -88,3 +98,7 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+
+//// ######
+//
