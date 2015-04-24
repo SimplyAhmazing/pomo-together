@@ -1,18 +1,31 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title>One Pomo</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <script src="/socket.io/socket.io.js"></script>
     <script>
       var socket = io();
       socket.on('time-tick', function(data){
-        console.log(Math.floor(data) + ':' + Math.round( (data % 1) * 60) );
+        var timerElement = document.getElementById('timer');
+        var seconds = Math.round( (data % 1) * 60);
+        timerElement.innerHTML = Math.floor(data) + ':' + (seconds <= 9 ? "0" + seconds : seconds);
       });
     </script>
+    <style>
+      #container {
+        margin: 0 auto;
+        text-align: center;
+      }
+      #timer {
+        font-size: 74px;
+      }
+    </style>
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <div id="container">
+    <h1 id="timer"></h1>
+    <h1>Those who Pomo Together Stay Together</h1>
+  </div>
   </body>
 </html>
