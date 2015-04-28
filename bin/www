@@ -26,6 +26,25 @@ app.set('port', port);
 var server = http.createServer(app);
 var io = ioFactory(server);
 
+// Connection on the default name space, aka '/'
+io.sockets.on('connection', function(socket){
+  console.dir(io.engine);
+  // console.log('This connection id is: ', socket.id)
+  // console.log('Total cons: ', io.sockets.sockets.length);
+    console.log('Total cons: ', io.engine.clientsCount);
+
+  socket.on('disconnect', function(){
+    console.log('we are disconnecting');
+    console.log('Total cons: ', io.engine.clientsCount);
+  });
+});
+
+io.sockets.on('disconnect', function(socket){
+  console.log('we have a disconnect');
+});
+
+
+
 clock.on('tick', function(pomoTime){
   io.sockets.emit('time-tick', pomoTime);
 });

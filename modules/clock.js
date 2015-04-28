@@ -24,7 +24,7 @@ Clock.prototype.run = function(){
             currentCountDown = getCountDown();
         };
 
-        console.log('New server tick. Time: ', currentCountDown);
+        // console.log('New server tick. Time: ', currentCountDown);
         currentCountDown = currentCountDown - (1/60);
         self.emit('tick', currentCountDown);
     }, 1000);
