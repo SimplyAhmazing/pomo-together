@@ -1,9 +1,12 @@
 var React = require('react');
 var io = require('socket.io-client');
 
+
+var socket = io();
+
+
 var RTimer = React.createClass({
   getInitialState: function(){
-    var socket = io();
     var self = this;
     socket.on('time-tick', function(data){
       var seconds = Math.round( (data % 1) * 60);
@@ -18,12 +21,62 @@ var RTimer = React.createClass({
   },
   render: function(){
     return (
-      <h1 idName="timer" className="timer-text">{this.state.time}</h1>
+      <h1 id="timer" className="timer-text">{this.state.time}</h1>
     );
   }
 });
 
+
+var RCurrentUsersCounter = React.createClass({
+  getInitialState: function(){
+    return {currentUsersCount: 1}
+  },
+  render: function(){
+    return (
+      <h1 id="current-users-counter">{this.state.currentUsersCount}</h1>,
+      <a href="#">Create Private Room</a>
+    );
+  }
+});
+
+
+var RInfoText = React.createClass({
+  render: function(){
+    return (
+      <div className="timer-text">
+        Those who pomo together
+        <br/><br/>
+        <span id="wrong-text">stay together</span>
+        <br/><br/>
+        <div id="right-text">Are more productive !!!</div>
+      </div>
+    );
+  }
+});
+
+var RDashboard = React.createClass({
+  render: function(){
+    return (
+      <RCurrentUsersCounter />
+    );
+  }
+});
+
+
+var APP = React.createClass({
+  render: function(){
+    return (
+      <div>
+        <RTimer />
+        <RInfoText />
+        <RDashboard />
+      </div>
+    );
+  }
+});
+
+
 React.render(
-  <RTimer />,
-  document.getElementById('timer')
+  <APP />,
+  document.getElementById('container')
 );

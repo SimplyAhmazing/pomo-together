@@ -26737,9 +26737,12 @@ function toArray(list, index) {
 var React = require('react');
 var io = require('socket.io-client');
 
+
+var socket = io();
+
+
 var RTimer = React.createClass({displayName: "RTimer",
   getInitialState: function(){
-    var socket = io();
     var self = this;
     socket.on('time-tick', function(data){
       var seconds = Math.round( (data % 1) * 60);
@@ -26754,14 +26757,65 @@ var RTimer = React.createClass({displayName: "RTimer",
   },
   render: function(){
     return (
-      React.createElement("h1", {idName: "timer", className: "timer-text"}, this.state.time)
+      React.createElement("h1", {id: "timer", className: "timer-text"}, this.state.time)
     );
   }
 });
 
+
+var RCurrentUsersCounter = React.createClass({displayName: "RCurrentUsersCounter",
+  getInitialState: function(){
+    return {currentUsersCount: 1}
+  },
+  render: function(){
+    return (
+      React.createElement("h1", {id: "current-users-counter"}, this.state.currentUsersCount),
+      React.createElement("a", {href: "#"}, "Create Private Room")
+    );
+  }
+});
+
+
+var RInfoText = React.createClass({displayName: "RInfoText",
+  render: function(){
+    return (
+      React.createElement("div", {className: "timer-text"}, 
+        "Those who pomo together", 
+        React.createElement("br", null), React.createElement("br", null), 
+        React.createElement("span", {id: "wrong-text"}, "stay together"), 
+        React.createElement("br", null), React.createElement("br", null), 
+        React.createElement("div", {id: "right-text"}, "Are more productive !!!")
+      )
+    );
+  }
+});
+
+var RDashboard = React.createClass({displayName: "RDashboard",
+  render: function(){
+    return (
+      React.createElement(RCurrentUsersCounter, null)
+    );
+  }
+});
+
+
+var APP = React.createClass({displayName: "APP",
+  render: function(){
+    console.log('app was called');
+    return (
+      React.createElement("div", null, 
+        React.createElement(RTimer, null), 
+        React.createElement(RInfoText, null), 
+        React.createElement(RDashboard, null)
+      )
+    );
+  }
+});
+
+
 React.render(
-  React.createElement(RTimer, null),
-  document.getElementById('timer')
+  React.createElement(APP, null),
+  document.getElementById('container')
 );
 
 

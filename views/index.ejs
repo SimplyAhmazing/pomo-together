@@ -29,43 +29,10 @@
         transform: rotate(-10deg);
       }
     </style>
-    <script type="text/jsx">
-      var RTimer = React.createClass({
-        getInitialState: function(){
-          var socket = io();
-          var self = this;
-          socket.on('time-tick', function(data){
-            var seconds = Math.round( (data % 1) * 60);
-            var minutes = Math.floor(data);
-            self.setState({
-              time: (minutes <= 9 ? "0" + minutes : minutes)  +
-              ':' + (seconds <= 9 ? "0" + seconds : seconds)
-            });
-          });
-
-          return {time: "Loading timer.."}
-        },
-        render: function(){
-          return (
-          <h1 idName="timer" className="timer-text">{this.state.time}</h1>
-          );
-        }
-      });
-      React.render(
-        <RTimer />,
-        document.getElementById('timer')
-      );
-    </script>
   </head>
   <body>
     <div id="container">
-      <!--  -->
-      <div id="timer"></div>
-      <div class="timer-text">Those who pomo together <br><br>
-        <span id="wrong-text">stay together</span><br><br>
-        <div id="right-text">Are more productive !!!</div>
-      </div>
     </div>
-    <script src="javascripts/bundle.min.js"></script>
+    <script src="javascripts/bundle.js"></script>
   </body>
 </html>
