@@ -26765,12 +26765,18 @@ var RTimer = React.createClass({displayName: "RTimer",
 
 var RCurrentUsersCounter = React.createClass({displayName: "RCurrentUsersCounter",
   getInitialState: function(){
+    var self = this;
+    socket.on('update-total-cons', function(data){
+      self.setState({currentUsersCount: data});
+    });
     return {currentUsersCount: 1}
   },
   render: function(){
     return (
-      React.createElement("h1", {id: "current-users-counter"}, this.state.currentUsersCount),
-      React.createElement("a", {href: "#"}, "Create Private Room")
+      React.createElement("div", {id: "current-users"}, 
+        React.createElement("h1", {id: "current-users-counter"}, "Current Users: ", this.state.currentUsersCount), 
+        React.createElement("a", {href: "#"}, "Create Private Room")
+      )
     );
   }
 });
@@ -26801,7 +26807,6 @@ var RDashboard = React.createClass({displayName: "RDashboard",
 
 var APP = React.createClass({displayName: "APP",
   render: function(){
-    console.log('app was called');
     return (
       React.createElement("div", null, 
         React.createElement(RTimer, null), 

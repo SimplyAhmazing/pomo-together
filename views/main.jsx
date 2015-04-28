@@ -29,12 +29,18 @@ var RTimer = React.createClass({
 
 var RCurrentUsersCounter = React.createClass({
   getInitialState: function(){
+    var self = this;
+    socket.on('update-total-cons', function(data){
+      self.setState({currentUsersCount: data});
+    });
     return {currentUsersCount: 1}
   },
   render: function(){
     return (
-      <h1 id="current-users-counter">{this.state.currentUsersCount}</h1>,
-      <a href="#">Create Private Room</a>
+      <div id="current-users">
+        <h1 id="current-users-counter">Current Users: {this.state.currentUsersCount}</h1>
+        <a href="#">Create Private Room</a>
+      </div>
     );
   }
 });

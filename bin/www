@@ -32,10 +32,12 @@ io.sockets.on('connection', function(socket){
   // console.log('This connection id is: ', socket.id)
   // console.log('Total cons: ', io.sockets.sockets.length);
     console.log('Total cons: ', io.engine.clientsCount);
+    io.sockets.emit('update-total-cons', io.engine.clientsCount);
 
   socket.on('disconnect', function(){
     console.log('we are disconnecting');
     console.log('Total cons: ', io.engine.clientsCount);
+    io.sockets.emit('update-total-cons', io.engine.clientsCount);
   });
 });
 
