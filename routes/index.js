@@ -8,7 +8,10 @@ router.get('/', function(req, res, next) {
 });
 
 
-/* GET private room */
-router.get('/create-room', createRoom);
+/* creating a private room */
+/* (by chaining routs) */
+router
+  .get('/create-room', createRoom.getCreateRoomForm)
+  .post('/create-room', createRoom.postCreateRoomForm);
 
 module.exports = router;
