@@ -12,4 +12,4 @@ npm start
 ```
 
 
-[Imgur](http://i.imgur.com/Q1Co1u1.png)
+![Imgur](http://i.imgur.com/Q1Co1u1.png)
